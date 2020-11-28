@@ -2,10 +2,10 @@
 The app.py file (main file for the entire api)
 """
 from utils import *
-import os
 from flask import Flask, send_file, request
 from constants import *
 from flask_restful import Api, Resource
+import json
 
 """
 Globals variables
@@ -32,13 +32,23 @@ def return_anime_face():
     return send_file(os.path.join(PLACEHOLDING_DATA_DIR, filename))
 
 
-@app.route('/getfile/<filename>', methods=["GET"])
-def get_file(filename):
+@app.route('/upload_anime_face', methods=["GET", "POST"])
+def upload_anime_face_to_data_base():
     """
     Sending the file
     :return: A file in the directory
     """
+    if request.method == "POST":
+        json_data = request.get_json() # Getting the json data
+        """
+        Putting the json data into the database
+        """
 
-    return send_file(os.path.join(IMAGES_DIR, filename), mimetype="image/png")
+
+        return "<h1> Success! </h1>"
+
+
+    return "<h1> Working </h1>"
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000) # Running the app
