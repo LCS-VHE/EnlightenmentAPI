@@ -1,16 +1,16 @@
 """
 The app.py file (main file for the entire api)
 """
-from utils import *
 from flask import Flask, send_file, request
+
 from constants import *
-from flask_restful import Api, Resource
-import json
+from utils import *
 
 """
 Globals variables
 """
 app = Flask(__name__)
+
 
 @app.route('/')
 def main():
@@ -20,10 +20,11 @@ def main():
     """
     return "<h1> Successful Connection</h1>"
 
+
 @app.route('/getanimeface')
 def return_anime_face():
     sliders = []
-    for row in range(33): # Getting the image parms
+    for row in range(33):  # Getting the image parms
         if request.args.get(f'row{str(row)}'):
             sliders.append(float(request.args.get(f'row{str(row)}')))
         else:
@@ -39,16 +40,15 @@ def upload_anime_face_to_data_base():
     :return: A file in the directory
     """
     if request.method == "POST":
-        json_data = request.get_json() # Getting the json data
+        json_data = request.get_json()  # Getting the json data
         """
         Putting the json data into the database
         """
 
-
         return "<h1> Success! </h1>"
-
 
     return "<h1> Working </h1>"
 
+
 if __name__ == "__main__":
-    app.run(debug=True, port=5000) # Running the app
+    app.run(debug=True, port=5000)  # Running the app

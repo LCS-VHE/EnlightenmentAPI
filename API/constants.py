@@ -8,5 +8,6 @@ db = mysql.connector.connect(
     user='root',
     password=PASSWORD,
     host='localhost',
+    database = 'EnlightenmentApi'
 )
 cursor = db.cursor()
