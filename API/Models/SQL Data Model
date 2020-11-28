@@ -12,16 +12,13 @@ Second Table:
 In the following format:
 --PostId Int (Table linking id)
 --Account Id (For Tracking)
---PostDate String
---TimeStamp Int
---MadeWith String
+--TimeStamp Int (Server side)
+--MadeWith String (Server side)
 --FileLocation String
 --Title String
 --Captions String
 --Likes Int
---Comments
 --isPrivate
---Tags
 
 Third Table:
 --PostId (Linking)
