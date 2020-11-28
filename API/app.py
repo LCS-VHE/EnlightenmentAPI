@@ -3,7 +3,7 @@ The app.py file (main file for the entire api)
 """
 from utils import *
 import os
-from flask import Flask, send_file
+from flask import Flask, send_file, request
 from constants import *
 from flask_restful import Api, Resource
 
