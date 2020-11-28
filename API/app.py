@@ -20,6 +20,18 @@ def main():
     """
     return "<h1> Successful Connection</h1>"
 
+@app.route('/getanimeface')
+def return_anime_face():
+    sliders = []
+    for row in range(33): # Getting the image parms
+        if request.args.get(f'row{str(row)}'):
+            sliders.append(float(request.args.get(f'row{str(row)}')))
+        else:
+            sliders.append(0)
+    filename = save_anime_face(sliders)
+    return send_file(os.path.join(PLACEHOLDING_DATA_DIR, filename))
+
+
 @app.route('/getfile/<filename>', methods=["GET"])
 def get_file(filename):
     """
