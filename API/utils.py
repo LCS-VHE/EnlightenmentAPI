@@ -35,23 +35,37 @@ def init():
             for lin in min.readlines():
                 mins.append(float(lin))
 
-def save_anime_face(sliders):
+def save_anime_face(sliders, loc=False):
     """
     Saving the anime face from the data
     :param sliders:
     :return:
     """
-    img = []
-    filename = f"Anime Face{time.time()}.png" # The format of the anime face
-    for index in range(len(sliders)):
-        img.append(sliders[index] / 10 * (maxs[index] - mins[index]))
+    if not loc: # With no defined path
+        img = []
+        filename = f"Anime Face{time.time()}.png" # The format of the anime face
+        for index in range(len(sliders)):
+            img.append(sliders[index] / 10 * (maxs[index] - mins[index]))
 
-    img = pca.inverse_transform([img])
-    img = decoder.predict(img).reshape((64, 64, 3))
+        img = pca.inverse_transform([img])
+        img = decoder.predict(img).reshape((64, 64, 3))
 
-    img = np.clip(img, 0, 1)
-    img = Image.fromarray((img*255).astype(np.uint8))
-    img.save(os.path.join(PLACEHOLDING_DATA_DIR, filename))
-    return filename
+        img = np.clip(img, 0, 1)
+        img = Image.fromarray((img*255).astype(np.uint8))
+        img.save(os.path.join(PLACEHOLDING_DATA_DIR, filename))
+        return filename
+    else:
+        img = []
+        for index in range(33):
+            img.append(sliders[index] / 10 * (maxs[index] - mins[index]))
+
+        img = pca.inverse_transform([img])
+        img = decoder.predict(img).reshape((64, 64, 3))
+
+        img = np.clip(img, 0, 1)
+        img = Image.fromarray((img * 255).astype(np.uint8))
+        img.save(loc)
+
+
 
 init()
