@@ -2,7 +2,7 @@
 ALL of the api object will be stored here
 """
 from flask_restful import Resource, Api
-from constants import db, cursor # Accessing database
+from constants import db, cursor, DOMAIN # Accessing database
 
 class GetPostsFromUser(Resource): # Return all the posts from a given user
     num_amount_posts = 10
@@ -23,7 +23,7 @@ class GetPostsFromUser(Resource): # Return all the posts from a given user
                 "accountId": element[1],
                 "timestamp": element[2],
                 "madeWith": element[3],
-                "filelocation": element[4], # This would be get url link in the future
+                "post_image_url": f"{DOMAIN}/file/image/{element[4]}", # This would be get url link in the future
                 "title": element[5],
                 "likes": element[6],
                 "isPrivate": element[7],

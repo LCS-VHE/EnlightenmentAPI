@@ -66,6 +66,10 @@ def upload_anime_face_to_data_base():
 def register():
 
     return "<h1> Post Request Not Made </h1>"
+
+@app.route('/file/image/<filename>')
+def get_file(filename):
+    return send_file(os.path.join(IMAGES_DIR, filename)) #sending this file when requests
 """
 A list of API 
 """
