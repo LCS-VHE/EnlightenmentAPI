@@ -31,11 +31,25 @@ class GetPostsFromUser(Resource): # Return all the posts from a given user
 
         return {"Posts" : posts}
 
-class GetPosts(Resource):
+class GetRandomPosts(Resource):
+    Q1 = "SELECT postId, accountId, timestamp, madeWith, filelocation, title, captions, likes, isPrivate FROM Posts"
     def get(self):
         """
 
         :return: A list of random posts
         """
-        return {"success" : "True"}
+        cursor.execute(self.Q1)
+        posts = []
+        for element in cursor:
+            posts.append({
+                "postId": element[0],
+                "accountId": element[1],
+                "timestamp": element[2],
+                "madeWith": element[3],
+                "post_image_url": f"{DOMAIN}/file/image/{element[4]}",  # This would be get url link in the future
+                "title": element[5],
+                "likes": element[6],
+                "isPrivate": element[7],
+            })
+        return {"posts" : posts}
 

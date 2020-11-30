@@ -5,7 +5,7 @@ from flask import Flask, send_file, request
 from constants import *
 from utils import *
 from flask_restful import Api
-from API_Object import GetPostsFromUser
+from API_Object import GetPostsFromUser, GetRandomPosts
 
 """
 Globals variables
@@ -74,5 +74,6 @@ def get_file(filename):
 A list of API 
 """
 api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
+api.add_resource(GetRandomPosts, "/api/get-random-posts")
 if __name__ == "__main__":
     app.run()  # Running the app
