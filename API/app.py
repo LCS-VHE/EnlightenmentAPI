@@ -4,11 +4,14 @@ The app.py file (main file for the entire api)
 from flask import Flask, send_file, request
 from constants import *
 from utils import *
+from flask_restful import Api
+from API_Object import GetPostsFromUser
 
 """
 Globals variables
 """
 app = Flask(__name__)
+api = Api(app)
 
 
 @app.route('/')
@@ -59,6 +62,9 @@ def upload_anime_face_to_data_base():
 
     return "<h1> Working </h1>"
 
-
+"""
+A list of API 
+"""
+api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
 if __name__ == "__main__":
     app.run()  # Running the app
