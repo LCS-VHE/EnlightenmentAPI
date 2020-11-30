@@ -11,3 +11,5 @@ db = mysql.connector.connect(
     database = 'EnlightenmentApi'
 )
 cursor = db.cursor()
+
+DOMAIN = ""
