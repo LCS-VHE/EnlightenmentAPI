@@ -62,6 +62,10 @@ def upload_anime_face_to_data_base():
 
     return "<h1> Working </h1>"
 
+@app.route('/register', methods=["POST", "GET"])
+def register():
+
+    return "<h1> Post Request Not Made </h1>"
 """
 A list of API 
 """
