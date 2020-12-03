@@ -12,7 +12,7 @@ Globals variables
 """
 app = Flask(__name__)
 api = Api(app)
-
+app.config['UPLOAD_FOLDER'] = PLACEHOLDING_DATA_DIR # Saving file Directory
 
 @app.route('/')
 def main():
@@ -73,6 +73,18 @@ def get_file(filename):
 """
 A list of API 
 """
+
+@app.route('/upload-image', methods=["POST", "GET"])
+def upload_image():
+    if request.method == "POST":
+        try: # Making sure that the server won't get an error
+            image = request.files["file"]
+            image.save(os.path.join(PLACEHOLDING_DATA_DIR, "Success.jpeg"))
+            return "Success" # All is well
+        except Exception as e: # Error processing file
+            return f"Error Processing it Error {e}"
+    else:
+        return "<h1> Invalid Request </h1>"
 api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
 api.add_resource(GetRandomPosts, "/api/get-random-posts")
 if __name__ == "__main__":
