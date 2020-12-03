@@ -6,9 +6,14 @@ from constants import db, cursor, DOMAIN # Accessing database
 
 class GetPostsFromUser(Resource): # Return all the posts from a given user
     num_amount_posts = 10
-    def get_sql_command(self, id):
-        return f"SELECT postId, accountId, timestamp, madeWith, filelocation, title, captions, likes, isPrivate FROM Posts WHERE accountId={id}"
 
+    def get_sql_command(self, id):
+        """
+
+        :param id: user id
+        :return: sql data command
+        """
+        return f"SELECT postId, accountId, timestamp, madeWith, filelocation, title, captions, likes, isPrivate FROM Posts WHERE accountId={id}"
     def get(self, id):
         """
 
@@ -26,7 +31,7 @@ class GetPostsFromUser(Resource): # Return all the posts from a given user
                 "post_image_url": f"{DOMAIN}/file/image/{element[4]}", # This would be get url link in the future
                 "title": element[5],
                 "likes": element[6],
-                "isPrivate": element[7],
+                "isPrivate":  element[7]
             })
 
         return {"Posts" : posts}
