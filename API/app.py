@@ -48,7 +48,6 @@ def upload_anime_face_to_data_base():
         """
         Putting the json data into the database
         """
-        print(image_parms)
         save_anime_face(image_parms, loc=os.path.join(IMAGES_DIR, filename)) # Saving the image
         cursor.execute(
             "INSERT INTO Posts (accountId, timestamp, madeWith, fileLocation, title, captions, isPrivate) VALUES (%s, %s, %s, %s, %s, %s, %s)",
@@ -85,6 +84,7 @@ def upload_image():
             return f"Error Processing it Error {e}"
     else:
         return "<h1> Invalid Request </h1>"
+
 api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
 api.add_resource(GetRandomPosts, "/api/get-random-posts")
 if __name__ == "__main__":
