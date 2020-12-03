@@ -1,10 +1,12 @@
 """
 ALL of the api object will be stored here
 """
-from flask_restful import Resource, Api
-from constants import db, cursor, DOMAIN # Accessing database
+from flask_restful import Resource
 
-class GetPostsFromUser(Resource): # Return all the posts from a given user
+from constants import cursor, DOMAIN  # Accessing database
+
+
+class GetPostsFromUser(Resource):  # Return all the posts from a given user
     num_amount_posts = 10
 
     def get_sql_command(self, id):
@@ -14,6 +16,7 @@ class GetPostsFromUser(Resource): # Return all the posts from a given user
         :return: sql data command
         """
         return f"SELECT postId, accountId, timestamp, madeWith, filelocation, title, captions, likes, isPrivate FROM Posts WHERE accountId={id}"
+
     def get(self, id):
         """
 
@@ -23,21 +26,25 @@ class GetPostsFromUser(Resource): # Return all the posts from a given user
         cursor.execute(self.get_sql_command(id))
         posts = []
         for element in cursor:
-            posts.append({
-                "postId" : element[0],
-                "accountId": element[1],
-                "timestamp": element[2],
-                "madeWith": element[3],
-                "post_image_url": f"{DOMAIN}/file/image/{element[4]}", # This would be get url link in the future
-                "title": element[5],
-                "likes": element[6],
-                "isPrivate":  element[7]
-            })
+            if element[8] == 0:
+                posts.append({
+                    "postId": element[0],
+                    "accountId": element[1],
+                    "timestamp": element[2],
+                    "madeWith": element[3],
+                    "post_image_url": f"{DOMAIN}/file/image/{element[4]}",  # This would be get url link in the future
+                    "title": element[5],
+                    "Captions": element[6],
+                    "likes": element[7],
+                    "isPrivate": element[8]
+                })
 
-        return {"Posts" : posts}
+        return {"Posts": posts}
+
 
 class GetRandomPosts(Resource):
     Q1 = "SELECT postId, accountId, timestamp, madeWith, filelocation, title, captions, likes, isPrivate FROM Posts"
+
     def get(self):
         """
 
@@ -53,8 +60,8 @@ class GetRandomPosts(Resource):
                 "madeWith": element[3],
                 "post_image_url": f"{DOMAIN}/file/image/{element[4]}",  # This would be get url link in the future
                 "title": element[5],
-                "likes": element[6],
-                "isPrivate": element[7],
+                "Captions": element[6],
+                "likes": element[7],
+                "isPrivate": element[8]
             })
-        return {"posts" : posts}
-
+        return {"posts": posts}
