@@ -5,7 +5,7 @@ from flask import Flask, send_file, request
 from constants import *
 from utils import *
 from flask_restful import Api
-from API_Object import GetPostsFromUser, GetRandomPosts
+from API_Object import GetPostsFromUser, GetOwnUserPosts, GetRecentPost
 
 """
 Globals variables
@@ -63,7 +63,14 @@ def upload_anime_face_to_data_base():
 
 @app.route('/register', methods=["POST", "GET"])
 def register():
-
+    """
+    The register object will be in the following format
+    {
+    "username" :
+    "password" :
+    }
+    :return:  Success or not
+    """
     return "<h1> Post Request Not Made </h1>"
 
 @app.route('/file/image/<filename>')
@@ -86,6 +93,8 @@ def upload_image():
         return "<h1> Invalid Request </h1>"
 
 api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
-api.add_resource(GetRandomPosts, "/api/get-random-posts")
+api.add_resource(GetOwnUserPosts, "/api/get-own-post/<int:id>")
+api.add_resource(GetRecentPost, "/api/get-recent-posts")
+
 if __name__ == "__main__":
     app.run()  # Running the app
