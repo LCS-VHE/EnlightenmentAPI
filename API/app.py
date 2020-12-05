@@ -6,6 +6,7 @@ from constants import *
 from utils import *
 from flask_restful import Api
 from API_Object import GetPostsFromUser, GetOwnUserPosts, GetRecentPost
+import urllib.parse
 
 """
 Globals variables
@@ -92,6 +93,23 @@ def upload_image():
     else:
         return "<h1> Invalid Request </h1>"
 
+@app.route('/neural-style-transfere', methods = ["POST", "GET"])
+def get_style_picture():
+    """
+
+    :return:
+    """
+    if request.method == "POST":
+        style_dir = os.path.join(PLACEHOLDING_DATA_DIR, f"{time.time()}.jpeg")
+        request.files["style-image"].save(style_dir)
+
+        original_dir = os.path.join(PLACEHOLDING_DATA_DIR, f"{time.time()}.jpeg")
+        request.files["original-image"].save(original_dir)
+
+        filename = save_neural_style_model(original_dir, style_dir)
+        file_link = f"{DOMAIN}/file/image/{urllib.parse.quote(filename)}" # Url encoding
+        return file_link
+    return "<h1> Not Workign </h1>"
 api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
 api.add_resource(GetOwnUserPosts, "/api/get-own-post/<int:id>")
 api.add_resource(GetRecentPost, "/api/get-recent-posts")
