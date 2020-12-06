@@ -3,7 +3,7 @@ ALL of the api object will be stored here
 """
 from flask_restful import Resource
 from constants import cursor, DOMAIN  # Accessing database
-
+import urllib.parse
 
 class GetPostsFromUser(Resource):  # Return all the posts from a given user
     num_amount_posts = 10
@@ -31,7 +31,7 @@ class GetPostsFromUser(Resource):  # Return all the posts from a given user
                     "accountId": element[1],
                     "timestamp": element[2],
                     "madeWith": element[3],
-                    "post_image_url": f"{DOMAIN}/file/image/{element[4]}",  # This would be get url link in the future
+                    "post_image_url": f"{DOMAIN}/file/image/{urllib.parse.quote(element[4])}",  # This would be get url link in the future
                     "title": element[5],
                     "Captions": element[6],
                     "likes": element[7],
@@ -62,7 +62,7 @@ class GetOwnUserPosts(Resource):
                 "accountId": element[1],
                 "timestamp": element[2],
                 "madeWith": element[3],
-                "post_image_url": f"{DOMAIN}/file/image/{element[4]}",  # This would be get url link in the future
+                "post_image_url": f"{DOMAIN}/file/image/{urllib.parse.quote(element[4])}",  # This would be get url link in the future
                 "title": element[5],
                 "Captions": element[6],
                 "likes": element[7],
@@ -83,7 +83,7 @@ class GetRecentPost(Resource):
                     "accountId": element[1],
                     "timestamp": element[2],
                     "madeWith": element[3],
-                    "post_image_url": f"{DOMAIN}/file/image/{element[4]}",  # This would be get url link in the future
+                    "post_image_url": f"{DOMAIN}/file/image/{urllib.parse.quote(element[4])}",  # This would be get url link in the future
                     "title": element[5],
                     "Captions": element[6],
                     "likes": element[7],
