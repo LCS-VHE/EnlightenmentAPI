@@ -12,4 +12,4 @@ db = mysql.connector.connect(
 )
 cursor = db.cursor()
 
-DOMAIN = "http://127.0.0.1:5000"
+DOMAIN = "https://75f83b2572a9.ngrok.io"
