@@ -112,8 +112,9 @@ def save_neural_style_model(original_image, style_image):
     filename = f"{time.time()}.jpeg"
     tensor_to_image(styled_image).save(os.path.join(IMAGES_DIR, filename))
     return filename
-def get_filename_from_neural_transfer_link():
-    filename = ""
+
+def get_filename_from_neural_transfer_link(imagelink):
+    filename = imagelink.split("/")[-1]
     return filename
 
 init()
