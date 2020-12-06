@@ -115,7 +115,18 @@ def get_style_picture():
 def upload_style_to_database():
     if request.method == "POST":
         json_data = request.get_json()  # Getting the json data
-        # timestamp, made_with, filename = time.time(), "Anime Auto Encoder", f"{time.time()}, get_filename_from_neural_transfer_link()
+        is_private, title, tags, accoundId, captions, imagelink = json_data['isPrivate'],  json_data['title'], json_data['tags'], json_data['accountId'], json_data['captions'], json_data['imageLink']
+        timestamp, made_with, filename = f"{time.time()}", "Neural Style Transfer", get_filename_from_neural_transfer_link(imagelink)
+        cursor.execute(
+            "INSERT INTO Posts (accountId, timestamp, madeWith, fileLocation, title, captions, isPrivate) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (accoundId, timestamp, made_with, filename, title, captions,
+             is_private))  # Uploading everything except tag
+        postId = cursor.lastrowid
+
+        cursor.execute("INSERT INTO Tags (postId, tag1, tag2, tag3) VALUES (%s, %s, %s, %s)",
+                       (postId, tags[0], tags[1], tags[2]))  # Uploading tags
+
+        db.commit() # Save Changes
         return "<h1> It Worked </h1>"
 
     return "<h1> Invalid Request Method </h1>"
