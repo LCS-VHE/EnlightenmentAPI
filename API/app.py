@@ -110,6 +110,15 @@ def get_style_picture():
         file_link = f"{DOMAIN}/file/image/{urllib.parse.quote(filename)}" # Url encoding
         return file_link
     return "<h1> Not Workign </h1>"
+
+@app.route('/new-style-post', methods=["POST", "GET"])
+def upload_style_to_database():
+    if request.method == "POST":
+        json_data = request.get_json()  # Getting the json data
+        # timestamp, made_with, filename = time.time(), "Anime Auto Encoder", f"{time.time()}, get_filename_from_neural_transfer_link()
+        return "<h1> It Worked </h1>"
+
+    return "<h1> Invalid Request Method </h1>"
 api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
 api.add_resource(GetOwnUserPosts, "/api/get-own-post/<int:id>")
 api.add_resource(GetRecentPost, "/api/get-recent-posts")
