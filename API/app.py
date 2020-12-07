@@ -5,7 +5,7 @@ from flask import Flask, send_file, request
 from constants import *
 from utils import *
 from flask_restful import Api
-from API_Object import GetPostsFromUser, GetOwnUserPosts, GetRecentPost
+from API_Object import GetPostsFromUser, GetOwnUserPosts, GetRecentPost, Trending, ExplorePage
 import urllib.parse
 
 """
@@ -130,9 +130,12 @@ def upload_style_to_database():
         return "<h1> It Worked </h1>"
 
     return "<h1> Invalid Request Method </h1>"
+
 api.add_resource(GetPostsFromUser, "/api/get-posts-from-user/<int:id>")
 api.add_resource(GetOwnUserPosts, "/api/get-own-post/<int:id>")
 api.add_resource(GetRecentPost, "/api/get-recent-posts")
+api.add_resource(Trending, "/api/trending")
+api.add_resource(ExplorePage, "/api/explore-page")
 
 if __name__ == "__main__":
     app.run()  # Running the app

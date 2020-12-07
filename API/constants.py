@@ -8,8 +8,8 @@ db = mysql.connector.connect(
     user='root',
     password=PASSWORD,
     host='localhost',
-    database = 'EnlightenmentApi'
+    database = 'EnlightenmentApi',
 )
-cursor = db.cursor()
+cursor = db.cursor(buffered=True)
 
-DOMAIN = "https://75f83b2572a9.ngrok.io"
+DOMAIN = "http://127.0.0.1:5000"
